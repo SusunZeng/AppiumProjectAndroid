@@ -1,0 +1,404 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自动化测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 80%; }
+table       { font-size: 100%; }
+
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">自动化测试报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> Susun.Zeng</p>
+<p class='attribute'><strong>开始时间 : </strong> 2018-04-18 12:02:18</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:04:37.973661</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 6，通过 1，错误 5，通过率= 16.67%</p>
+
+<p class='description'></p>
+</div>
+
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 16.67% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 0 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 1 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 6 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>__mp_main__.CaseTest</td>
+    <td class="text-center">6</td>
+    <td class="text-center">1</td>
+    <td class="text-center">0</td>
+    <td class="text-center">5</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',6)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_2</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse in">
+    <pre>
+    
+pt1_1: this is setup
+
+opera_excel: &lt;util.opera_excel.OperaExcel object at 0x0000027E694220F0&gt;
+this is case02
+
+test case_02 里面的参数 0
+账号密码： 15800000097 , zjc135
+输入code:  2622
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_2' class='none'>
+    <td class='errorCase'><div class='testcase'>test_4</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_2'>错误</button>
+    <div id='div_ft1_2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_2'>错误</button>
+    <div id='div_ft1_2' class="collapse in">
+    <pre>
+    
+ft1_2: this is setup
+
+opera_excel: &lt;util.opera_excel.OperaExcel object at 0x0000027E694220F0&gt;
+方法test_4： &lt;appium.webdriver.webdriver.WebDriver (session="a3b3f36a-fd3d-4b9e-a5bb-95308f19d6e9")&gt;
+payee_name: //*[contains(@text,"陈真")]
+transfer_amount 10.09
+输入code:  042896
+draw_password 888888
+转账成功提示： 转账已提交
+余额： CNY 52,037.65
+None
+copy的sheet值： &lt;xlwt.Worksheet.Worksheet object at 0x0000027E68BC0F98&gt;
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 97, in test_4
+    opera_excel.write_value(4, 9, '通过')
+  File "E:\AppiumProjectAndroid\util\opera_excel.py", line 85, in write_value
+    write_data.save(self.file_path)     #保存到具体的路径文件
+  File "E:\AppiumProjectAndroid\venv\lib\site-packages\xlwt\Workbook.py", line 710, in save
+    doc.save(filename_or_stream, self.get_biff_data())
+  File "E:\AppiumProjectAndroid\venv\lib\site-packages\xlwt\CompoundDoc.py", line 262, in save
+    f = open(file_name_or_filelike_obj, 'w+b')
+PermissionError: [Errno 13] Permission denied: 'E:\\AppiumProjectAndroid\\config\\AndroidAutomationTestCase.xls'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_3' class='none'>
+    <td class='errorCase'><div class='testcase'>test_5</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_3'>错误</button>
+    <div id='div_ft1_3' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_3'>错误</button>
+    <div id='div_ft1_3' class="collapse in">
+    <pre>
+    
+ft1_3: this is setup
+
+opera_excel: &lt;util.opera_excel.OperaExcel object at 0x0000027E694220F0&gt;
+温馨提示1： 请输入账户姓名
+温馨提示： 请输入账户姓名
+None
+copy的sheet值： &lt;xlwt.Worksheet.Worksheet object at 0x0000027E68BC0470&gt;
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 105, in test_5
+    opera_excel.write_value(5, 9, '通过')
+  File "E:\AppiumProjectAndroid\util\opera_excel.py", line 85, in write_value
+    write_data.save(self.file_path)     #保存到具体的路径文件
+  File "E:\AppiumProjectAndroid\venv\lib\site-packages\xlwt\Workbook.py", line 710, in save
+    doc.save(filename_or_stream, self.get_biff_data())
+  File "E:\AppiumProjectAndroid\venv\lib\site-packages\xlwt\CompoundDoc.py", line 262, in save
+    f = open(file_name_or_filelike_obj, 'w+b')
+PermissionError: [Errno 13] Permission denied: 'E:\\AppiumProjectAndroid\\config\\AndroidAutomationTestCase.xls'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_4' class='none'>
+    <td class='errorCase'><div class='testcase'>test_6</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_4'>错误</button>
+    <div id='div_ft1_4' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_4'>错误</button>
+    <div id='div_ft1_4' class="collapse in">
+    <pre>
+    
+ft1_4: this is setup
+
+opera_excel: &lt;util.opera_excel.OperaExcel object at 0x0000027E694220F0&gt;
+用例编号：111CZSX024
+payee_name: //*[contains(@text,"陈真")]
+transfer_amount: 0
+温馨提示2： 转账金额输入有误
+温馨提示： 转账金额输入有误
+None
+copy的sheet值： &lt;xlwt.Worksheet.Worksheet object at 0x0000027E68B3A2B0&gt;
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 114, in test_6
+    opera_excel.write_value(6, 9, '通过')
+  File "E:\AppiumProjectAndroid\util\opera_excel.py", line 85, in write_value
+    write_data.save(self.file_path)     #保存到具体的路径文件
+  File "E:\AppiumProjectAndroid\venv\lib\site-packages\xlwt\Workbook.py", line 710, in save
+    doc.save(filename_or_stream, self.get_biff_data())
+  File "E:\AppiumProjectAndroid\venv\lib\site-packages\xlwt\CompoundDoc.py", line 262, in save
+    f = open(file_name_or_filelike_obj, 'w+b')
+PermissionError: [Errno 13] Permission denied: 'E:\\AppiumProjectAndroid\\config\\AndroidAutomationTestCase.xls'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_5' class='none'>
+    <td class='errorCase'><div class='testcase'>test_7</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_5'>错误</button>
+    <div id='div_ft1_5' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_5'>错误</button>
+    <div id='div_ft1_5' class="collapse in">
+    <pre>
+    
+ft1_5: this is setup
+
+opera_excel: &lt;util.opera_excel.OperaExcel object at 0x0000027E694220F0&gt;
+payee_name: //*[contains(@text,"陈真")]
+transfer_amount: 100000.0
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 118, in test_7
+    error_prompt = self.queryTransfer_business.query_transferF_beyond_balance()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 216, in query_transferF_beyond_balance
+    self.queryTransfer_handle.send_transfer_amount_code(transfer_amount)
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 105, in send_transfer_amount_code
+    self.queryTransfer_page.get_transfer_amount_element().send_keys(transferAmount)
+  File "E:\AppiumProjectAndroid\venv\lib\site-packages\selenium\webdriver\remote\webelement.py", line 473, in send_keys
+    local_file = self.parent.file_detector.is_local_file(*value)
+  File "E:\AppiumProjectAndroid\venv\lib\site-packages\selenium\webdriver\remote\file_detector.py", line 48, in is_local_file
+    file_path = ''.join(keys_to_typing(keys))
+  File "E:\AppiumProjectAndroid\venv\lib\site-packages\selenium\webdriver\common\utils.py", line 150, in keys_to_typing
+    for i in range(len(val)):
+TypeError: object of type 'float' has no len()
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_6' class='none'>
+    <td class='errorCase'><div class='testcase'>test_8</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_6'>错误</button>
+    <div id='div_ft1_6' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_6'>错误</button>
+    <div id='div_ft1_6' class="collapse in">
+    <pre>
+    
+ft1_6: this is setup
+
+opera_excel: &lt;util.opera_excel.OperaExcel object at 0x0000027E694220F0&gt;
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 126, in test_8
+    error_prompt = self.queryTransfer_business.query_transferF_amount_space()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 234, in query_transferF_amount_space
+    self.query_transferF_select()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 91, in query_transferF_select
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>6</td>
+    <td>1</td>
+    <td>0</td>
+    <td>5</td>
+    <td>通过率：16.67%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+
+</body>
+</html>

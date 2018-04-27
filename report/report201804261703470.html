@@ -1,0 +1,1061 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>自动化测试报告</title>
+    <meta name="generator" content="HTMLTestRunner 0.8.2.2"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    
+<style type="text/css" media="screen">
+body        { font-family: Microsoft YaHei,Tahoma,arial,helvetica,sans-serif;padding: 20px; font-size: 80%; }
+table       { font-size: 100%; }
+
+/* -- heading ---------------------------------------------------------------------- */
+.heading {
+    margin-top: 0ex;
+    margin-bottom: 1ex;
+}
+
+.heading .description {
+    margin-top: 4ex;
+    margin-bottom: 6ex;
+}
+
+/* -- report ------------------------------------------------------------------------ */
+#total_row  { font-weight: bold; }
+.passCase   { color: #5cb85c; }
+.failCase   { color: #d9534f; font-weight: bold; }
+.errorCase  { color: #f0ad4e; font-weight: bold; }
+.hiddenRow  { display: none; }
+.testcase   { margin-left: 2em; }
+</style>
+
+</head>
+<body >
+<script language="javascript" type="text/javascript">
+output_list = Array();
+
+/*level 调整增加只显示通过用例的分类 --Findyou
+0:Summary //all hiddenRow
+1:Failed  //pt hiddenRow, ft none
+2:Pass    //pt none, ft hiddenRow
+3:All     //pt none, ft none
+*/
+function showCase(level) {
+    trs = document.getElementsByTagName("tr");
+    for (var i = 0; i < trs.length; i++) {
+        tr = trs[i];
+        id = tr.id;
+        if (id.substr(0,2) == 'ft') {
+            if (level == 2 || level == 0 ) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+        if (id.substr(0,2) == 'pt') {
+            if (level < 2) {
+                tr.className = 'hiddenRow';
+            }
+            else {
+                tr.className = '';
+            }
+        }
+    }
+
+    //加入【详细】切换文字变化 --Findyou
+    detail_class=document.getElementsByClassName('detail');
+	//console.log(detail_class.length)
+	if (level == 3) {
+		for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="收起"
+		}
+	}
+	else{
+			for (var i = 0; i < detail_class.length; i++){
+			detail_class[i].innerHTML="详细"
+		}
+	}
+}
+
+function showClassDetail(cid, count) {
+    var id_list = Array(count);
+    var toHide = 1;
+    for (var i = 0; i < count; i++) {
+        //ID修改 点 为 下划线 -Findyou
+        tid0 = 't' + cid.substr(1) + '_' + (i+1);
+        tid = 'f' + tid0;
+        tr = document.getElementById(tid);
+        if (!tr) {
+            tid = 'p' + tid0;
+            tr = document.getElementById(tid);
+        }
+        id_list[i] = tid;
+        if (tr.className) {
+            toHide = 0;
+        }
+    }
+    for (var i = 0; i < count; i++) {
+        tid = id_list[i];
+        //修改点击无法收起的BUG，加入【详细】切换文字变化 --Findyou
+        if (toHide) {
+            document.getElementById(tid).className = 'hiddenRow';
+            document.getElementById(cid).innerText = "详细"
+        }
+        else {
+            document.getElementById(tid).className = '';
+            document.getElementById(cid).innerText = "收起"
+        }
+    }
+}
+
+function html_escape(s) {
+    s = s.replace(/&/g,'&amp;');
+    s = s.replace(/</g,'&lt;');
+    s = s.replace(/>/g,'&gt;');
+    return s;
+}
+</script>
+<div class='heading'>
+<h1 style="font-family: Microsoft YaHei">自动化测试报告</h1>
+<p class='attribute'><strong>测试人员 : </strong> Susun.Zeng</p>
+<p class='attribute'><strong>开始时间 : </strong> 2018-04-26 17:03:47</p>
+<p class='attribute'><strong>合计耗时 : </strong> 0:15:30.485117</p>
+<p class='attribute'><strong>测试结果 : </strong> 共 29，通过 15，错误 14，通过率= 51.72%</p>
+
+<p class='description'></p>
+</div>
+
+
+
+<p id='show_detail_line'>
+<a class="btn btn-primary" href='javascript:showCase(0)'>概要{ 51.72% }</a>
+<a class="btn btn-danger" href='javascript:showCase(1)'>失败{ 0 }</a>
+<a class="btn btn-success" href='javascript:showCase(2)'>通过{ 15 }</a>
+<a class="btn btn-info" href='javascript:showCase(3)'>所有{ 29 }</a>
+</p>
+<table id='result_table' class="table table-condensed table-bordered table-hover">
+<colgroup>
+<col align='left' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+<col align='right' />
+</colgroup>
+<tr id='header_row' class="text-center success" style="font-weight: bold;font-size: 14px;">
+    <td>用例集/测试用例</td>
+    <td>总计</td>
+    <td>通过</td>
+    <td>失败</td>
+    <td>错误</td>
+    <td>详细</td>
+</tr>
+
+<tr class='errorClass warning'>
+    <td>__mp_main__.CaseTest</td>
+    <td class="text-center">29</td>
+    <td class="text-center">15</td>
+    <td class="text-center">0</td>
+    <td class="text-center">14</td>
+    <td class="text-center"><a href="javascript:showClassDetail('c1',29)" class="detail" id='c1'>详细</a></td>
+</tr>
+
+<tr id='pt1_1' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_2</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_1' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_1'>通过</button>
+    <div id='div_pt1_1' class="collapse in">
+    <pre>
+    
+pt1_1: this is setup
+
+this is case02
+
+test case_02 里面的参数 0
+账号密码： 15800000097 , zjc135
+输入code:  6507
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_2' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_21</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_2' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_2'>通过</button>
+    <div id='div_pt1_2' class="collapse in">
+    <pre>
+    
+pt1_2: this is setup
+
+添加前： 3
+payee_name: A3338
+payee_account: 6235957400006140496
+输入后银行账号： 6235957400006140496
+payee_bank: //*[contains(@text,"广东南粤银行")]
+transfer_amount 12.56
+输入code:  687011
+draw_password 888888
+获取system_prompt： 以实际到账时间为准
+转账成功提示： 转账已提交
+余额： CNY 51,757.49
+添加后： 4
+对比结果： True
+获取元素长度对比结果： True
+None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_3' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_22</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_3' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_3'>通过</button>
+    <div id='div_pt1_3' class="collapse in">
+    <pre>
+    
+pt1_3: this is setup
+
+payee_name_target: A3338
+收款人列表元素长度： 4
+第0收款人名字： A3338
+收款人元素数组： 0
+取到值： 0
+删除前长度： 4
+删除后长度： 3
+对比结果： True
+获取元素长度对比结果： True
+None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_4' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_23</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_4' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_4'>通过</button>
+    <div id='div_pt1_4' class="collapse in">
+    <pre>
+    
+pt1_4: this is setup
+
+payee_bank: //*[contains(@text,"工商")]
+city: 广州市
+城市列表元素长度： 7
+第0城市： 湛江市
+第1城市： 广州市
+获取的属性： 找到226个
+抽取出来的数字有： 226
+获取支行数量对比结果： True
+None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_5' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_24</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_5' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_5'>通过</button>
+    <div id='div_pt1_5' class="collapse in">
+    <pre>
+    
+pt1_5: this is setup
+
+payee_bank: //*[contains(@text,"工商")]
+获取到的头条标题： 城市列表
+城市列表对比结果： True
+获取城市列表页面标题： 城市列表
+None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_6' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_25</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_6' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_6'>通过</button>
+    <div id='div_pt1_6' class="collapse in">
+    <pre>
+    
+pt1_6: this is setup
+
+payee_bank: //*[contains(@text,"工商")]
+city: 广州市
+城市列表元素长度： 7
+第0城市： 湛江市
+第1城市： 广州市
+城市元素取到值： 1
+获取的属性： 找到226个
+抽取出来的数字有： 226
+查询分行信息正常
+获取分行查询结果： &lt;appium.webdriver.webelement.WebElement (session="b9415f9b-f6f6-47e5-9f22-f4d8a4b6f8ec", element="174")&gt;
+None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_7' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_26</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_7' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_7'>通过</button>
+    <div id='div_pt1_7' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_7' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_7'>通过</button>
+    <div id='div_pt1_7' class="collapse in">
+    <pre>
+    
+pt1_7: this is setup
+
+账户种类： 2
+赋值： acc_type0 , account_balance0 , regist_date0
+第0账户种类： 个人活期存款
+第0账户余额： CNY 51,757.49
+第0开户日期： 2023-10-05
+列表： ['个人活期存款', 'CNY 51,757.49', '2023-10-05']
+赋值： acc_type1 , account_balance1 , regist_date1
+第1账户种类： 定活两便储蓄存款
+第1账户余额： CNY 80.00
+第1开户日期： 2029-01-18
+列表： ['个人活期存款', 'CNY 51,757.49', '2023-10-05', '定活两便储蓄存款', 'CNY 80.00', '2029-01-18']
+列表account_message： ['个人活期存款', 'CNY 51,757.49', '2023-10-05', '定活两便储蓄存款', 'CNY 80.00', '2029-01-18']
+列表转换为字符串： 个人活期存款,CNY 51,757.49,2023-10-05,定活两便储蓄存款,CNY 80.00,2029-01-18
+获取账户种类有： 2
+None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_8' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_27</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_8' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_8'>通过</button>
+    <div id='div_pt1_8' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_8' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_8'>通过</button>
+    <div id='div_pt1_8' class="collapse in">
+    <pre>
+    
+pt1_8: this is setup
+
+payee_name: //*[contains(@text,"A3392")]
+transfer_amount 11.23
+输入code:  114533
+draw_password 888888
+获取system_prompt： 以实际到账时间为准
+转账成功提示： 转账已提交
+余额： CNY 51,746.26
+verification_result: None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_9' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_28</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_9' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_9'>通过</button>
+    <div id='div_pt1_9' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_9' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_9'>通过</button>
+    <div id='div_pt1_9' class="collapse in">
+    <pre>
+    
+pt1_9: this is setup
+
+payee_name: //*[contains(@text,"A3392")]
+transfer_amount: 0
+温馨提示2： 转账金额输入有误
+verification_result: None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_10' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_29</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_10' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_10'>通过</button>
+    <div id='div_pt1_10' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_10' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_10'>通过</button>
+    <div id='div_pt1_10' class="collapse in">
+    <pre>
+    
+pt1_10: this is setup
+
+payee_name: //*[contains(@text,"A3392")]
+transfer_amount: 100000.00
+温馨提示3： 余额不足
+verification_result: None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_11' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_30</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_11' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_11'>通过</button>
+    <div id='div_pt1_11' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_11' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_11'>通过</button>
+    <div id='div_pt1_11' class="collapse in">
+    <pre>
+    
+pt1_11: this is setup
+
+payee_name: //*[contains(@text,"A3392")]
+温馨提示4： 请输入转账金额
+verification_result: None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_12' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_31</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_12' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_12'>通过</button>
+    <div id='div_pt1_12' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_12' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_12'>通过</button>
+    <div id='div_pt1_12' class="collapse in">
+    <pre>
+    
+pt1_12: this is setup
+
+payee_name: //*[contains(@text,"A3392")]
+transfer_amount: 壹佰
+温馨提示5： 请输入转账金额
+verification_result: None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_13' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_32</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_13' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_13'>通过</button>
+    <div id='div_pt1_13' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_13' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_13'>通过</button>
+    <div id='div_pt1_13' class="collapse in">
+    <pre>
+    
+pt1_13: this is setup
+
+payee_name: A3392123
+payee_account: 6235957400006141031
+输入后银行账号： 6235957400006141031
+payee_name: //*[contains(@text,"广东南粤银行")]
+transfer_amount: 10.02
+温馨提示6： 账户和户名不匹配
+verification_result: None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_14' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_33</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_14' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_14'>通过</button>
+    <div id='div_pt1_14' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_14' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_14'>通过</button>
+    <div id='div_pt1_14' class="collapse in">
+    <pre>
+    
+pt1_14: this is setup
+
+温馨提示1： 请输入账户姓名
+verification_result: None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='pt1_15' class='hiddenRow'>
+    <td class='passCase'><div class='testcase'>test_34</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_pt1_15' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_pt1_15'>通过</button>
+    <div id='div_pt1_15' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_pt1_15' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_pt1_15'>通过</button>
+    <div id='div_pt1_15' class="collapse in">
+    <pre>
+    
+pt1_15: this is setup
+
+payee_name: sjtestt097
+payee_account: 6235957400006128681
+输入后银行账号： 6235957400006128681
+payee_bank: //*[contains(@text,"广东南粤银行")]
+transfer_amount: 10.12
+温馨提示7： 转入转出账户不能相同
+verification_result: None
+this is teardown！
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_16' class='none'>
+    <td class='errorCase'><div class='testcase'>test_35</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_16' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_16'>错误</button>
+    <div id='div_ft1_16' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_16' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_16'>错误</button>
+    <div id='div_ft1_16' class="collapse in">
+    <pre>
+    
+ft1_16: this is setup
+
+payee_name: //*[contains(@text,"A3392")]
+transfer_amount: 10.11
+输入code:  
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 392, in test_35
+    error_prompt = self.queryTransfer_business.query_transferG_drawpassword_wrong()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1467, in query_transferG_drawpassword_wrong
+    self.queryTransfer_handle.send_input_code_code()
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 221, in send_input_code_code
+    self.queryTransfer_page.get_input_code_element().send_keys(drawCode)
+AttributeError: 'NoneType' object has no attribute 'send_keys'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_17' class='none'>
+    <td class='errorCase'><div class='testcase'>test_36</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_17' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_17'>错误</button>
+    <div id='div_ft1_17' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_17' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_17'>错误</button>
+    <div id='div_ft1_17' class="collapse in">
+    <pre>
+    
+ft1_17: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 400, in test_36
+    transfer_submitted_mark = self.queryTransfer_business.query_transferG_drawpassword_again()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1492, in query_transferG_drawpassword_again
+    self.query_transferG_drawpassword_wrong()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1456, in query_transferG_drawpassword_wrong
+    self.query_transferG_select()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1140, in query_transferG_select
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_18' class='none'>
+    <td class='errorCase'><div class='testcase'>test_37</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_18' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_18'>错误</button>
+    <div id='div_ft1_18' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_18' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_18'>错误</button>
+    <div id='div_ft1_18' class="collapse in">
+    <pre>
+    
+ft1_18: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 408, in test_37
+    error_prompt = self.queryTransfer_business.query_transferG_drawpassword_lack()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1581, in query_transferG_drawpassword_lack
+    self.query_transferG_select()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1140, in query_transferG_select
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_19' class='none'>
+    <td class='errorCase'><div class='testcase'>test_38</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_19' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_19'>错误</button>
+    <div id='div_ft1_19' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_19' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_19'>错误</button>
+    <div id='div_ft1_19' class="collapse in">
+    <pre>
+    
+ft1_19: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 416, in test_38
+    element_exist = self.queryTransfer_business.query_transferG_drawpassword_excess()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1618, in query_transferG_drawpassword_excess
+    self.query_transferG_select()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1140, in query_transferG_select
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_20' class='none'>
+    <td class='errorCase'><div class='testcase'>test_39</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_20' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_20'>错误</button>
+    <div id='div_ft1_20' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_20' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_20'>错误</button>
+    <div id='div_ft1_20' class="collapse in">
+    <pre>
+    
+ft1_20: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 424, in test_39
+    element_exist = self.queryTransfer_business.query_transferG_bank_list()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1656, in query_transferG_bank_list
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_21' class='none'>
+    <td class='errorCase'><div class='testcase'>test_40</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_21' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_21'>错误</button>
+    <div id='div_ft1_21' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_21' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_21'>错误</button>
+    <div id='div_ft1_21' class="collapse in">
+    <pre>
+    
+ft1_21: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 432, in test_40
+    element_exist = self.queryTransfer_business.query_transferG_bank_search()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1681, in query_transferG_bank_search
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_22' class='none'>
+    <td class='errorCase'><div class='testcase'>test_41</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_22' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_22'>错误</button>
+    <div id='div_ft1_22' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_22' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_22'>错误</button>
+    <div id='div_ft1_22' class="collapse in">
+    <pre>
+    
+ft1_22: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 440, in test_41
+    element_exist = self.queryTransfer_business.query_transferG_payee_list()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1711, in query_transferG_payee_list
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_23' class='none'>
+    <td class='errorCase'><div class='testcase'>test_42</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_23' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_23'>错误</button>
+    <div id='div_ft1_23' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_23' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_23'>错误</button>
+    <div id='div_ft1_23' class="collapse in">
+    <pre>
+    
+ft1_23: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 448, in test_42
+    element_compare = self.queryTransfer_business.query_transferG_payee_choice()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1737, in query_transferG_payee_choice
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_24' class='none'>
+    <td class='errorCase'><div class='testcase'>test_43</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_24' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_24'>错误</button>
+    <div id='div_ft1_24' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_24' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_24'>错误</button>
+    <div id='div_ft1_24' class="collapse in">
+    <pre>
+    
+ft1_24: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 456, in test_43
+    payeelist_compare = self.queryTransfer_business.query_transferG_payee_add()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1771, in query_transferG_payee_add
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_25' class='none'>
+    <td class='errorCase'><div class='testcase'>test_44</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_25' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_25'>错误</button>
+    <div id='div_ft1_25' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_25' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_25'>错误</button>
+    <div id='div_ft1_25' class="collapse in">
+    <pre>
+    
+ft1_25: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 464, in test_44
+    payeelist_compare = self.queryTransfer_business.query_transferG_payee_delete()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1892, in query_transferG_payee_delete
+    j = self.query_transferG_payee_delete_before()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1861, in query_transferG_payee_delete_before
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_26' class='none'>
+    <td class='errorCase'><div class='testcase'>test_45</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_26' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_26'>错误</button>
+    <div id='div_ft1_26' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_26' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_26'>错误</button>
+    <div id='div_ft1_26' class="collapse in">
+    <pre>
+    
+ft1_26: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 472, in test_45
+    compare_branch_amount = self.queryTransfer_business.query_transferG_payee_branch()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1960, in query_transferG_payee_branch
+    j = self.query_transferG_payee_cityChoice()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1922, in query_transferG_payee_cityChoice
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_27' class='none'>
+    <td class='errorCase'><div class='testcase'>test_46</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_27' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_27'>错误</button>
+    <div id='div_ft1_27' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_27' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_27'>错误</button>
+    <div id='div_ft1_27' class="collapse in">
+    <pre>
+    
+ft1_27: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 480, in test_46
+    city_list = self.queryTransfer_business.query_transferG_payee_city()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1983, in query_transferG_payee_city
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_28' class='none'>
+    <td class='errorCase'><div class='testcase'>test_47</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_28' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_28'>错误</button>
+    <div id='div_ft1_28' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_28' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_28'>错误</button>
+    <div id='div_ft1_28' class="collapse in">
+    <pre>
+    
+ft1_28: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 488, in test_47
+    branch_bank = self.queryTransfer_business.query_transferG_branch_keyword()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 2014, in query_transferG_branch_keyword
+    j = self.query_transferG_payee_cityChoice()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 1922, in query_transferG_payee_cityChoice
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='ft1_29' class='none'>
+    <td class='errorCase'><div class='testcase'>test_48</div></td>
+    <td colspan='5' align='center'>
+    <!--默认收起错误信息 -Findyou
+    <button id='btn_ft1_29' type="button"  class="btn btn-danger btn-xs collapsed" data-toggle="collapse" data-target='#div_ft1_29'>错误</button>
+    <div id='div_ft1_29' class="collapse">  -->
+
+    <!-- 默认展开错误信息 -Findyou -->
+    <button id='btn_ft1_29' type="button"  class="btn btn-danger btn-xs" data-toggle="collapse" data-target='#div_ft1_29'>错误</button>
+    <div id='div_ft1_29' class="collapse in">
+    <pre>
+    
+ft1_29: this is setup
+
+this is teardown！
+Traceback (most recent call last):
+  File "E:\AppiumProjectAndroid\case\test_case03.py", line 496, in test_48
+    account_amount = self.queryTransfer_business.query_transferG_account_detail()
+  File "E:\AppiumProjectAndroid\business\queryTransfer_business.py", line 2045, in query_transferG_account_detail
+    self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
+  File "E:\AppiumProjectAndroid\handle\queryTransfer_handle.py", line 30, in click_action_list_button
+    self.queryTransfer_page.get_action_list_element().find_element_by_xpath(xpathAddress).click()
+AttributeError: 'NoneType' object has no attribute 'find_element_by_xpath'
+
+
+    </pre>
+    </div>
+    </td>
+</tr>
+
+<tr id='total_row' class="text-center active">
+    <td>总计</td>
+    <td>29</td>
+    <td>15</td>
+    <td>0</td>
+    <td>14</td>
+    <td>通过率：51.72%</td>
+</tr>
+</table>
+
+<div id='ending'>&nbsp;</div>
+    <div style=" position:fixed;right:50px; bottom:30px; width:20px; height:20px;cursor:pointer">
+    <a href="#"><span class="glyphicon glyphicon-eject" style = "font-size:30px;" aria-hidden="true">
+    </span></a></div>
+    
+
+</body>
+</html>
