@@ -89,7 +89,7 @@ class CaseTest(ParameTest_Case):
     # @unittest.skip('暂停CaseTest')
     def test_3(self):
         self.queryTransfer_business.query_transferF_input()
-        transfer_submitted_mark = self.queryTransfer_business.query_transfer_page(4, 11, 4, 7)
+        transfer_submitted_mark = self.queryTransfer_business.query_transfer_page(4, 11, 4, 7, 4, 12)
         verification_result = self.assertEqual(transfer_submitted_mark, '转账已提交', '验证失败')
         print('verification_result:',verification_result)
         if verification_result == None:
@@ -100,7 +100,7 @@ class CaseTest(ParameTest_Case):
     def test_4(self):
         # print('方法test_4：',driver)
         self.queryTransfer_business.query_transferF_select()
-        transfer_submitted_mark = self.queryTransfer_business.query_transfer_page(5, 11, 5, 7)
+        transfer_submitted_mark = self.queryTransfer_business.query_transfer_page(5, 11, 5, 7, 5, 12)
         verification_result = self.assertEqual(transfer_submitted_mark, '转账已提交', '验证失败')
         print('verification_result:',verification_result)
         if verification_result == None:
@@ -319,7 +319,7 @@ class CaseTest(ParameTest_Case):
     # @unittest.skip('暂停CaseTest')
     def test_27(self):
         self.queryTransfer_business.query_transferG_select()
-        transfer_submitted_mark = self.queryTransfer_business.query_transfer_page(28, 11, 28, 7)
+        transfer_submitted_mark = self.queryTransfer_business.query_transfer_page(28, 11, 28, 7, 28, 12)
         # self.myAccount_business.hide_balance()
         verification_result = self.assertEqual(transfer_submitted_mark, '转账已提交', '验证失败')
         print('verification_result:',verification_result)
@@ -499,9 +499,183 @@ class CaseTest(ParameTest_Case):
         if verification_result == None:
             write_excel.write(49, 10, '通过')
 
-    @unittest.skip('暂停CaseTest')
+    # @unittest.skip('暂停CaseTest')
     def test_49(self):
-        pass
+        self.queryTransfer_business.query_transferT_select()
+        transfer_submitted_mark = self.queryTransfer_business.query_transfer_page(50, 11, 50, 7, 50, 12)
+        verification_result = self.assertEqual(transfer_submitted_mark, '转账已提交', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(50, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_50(self):
+        error_prompt = self.queryTransfer_business.query_transferT_payee_space()
+        verification_result = self.assertEqual(error_prompt, '请输入账户姓名', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(51, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_51(self):
+        error_prompt = self.queryTransfer_business.query_transferT_amount_zero()
+        verification_result = self.assertEqual(error_prompt, '转账金额输入有误', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(52, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_52(self):
+        error_prompt = self.queryTransfer_business.query_transferT_beyond_balance()
+        verification_result = self.assertEqual(error_prompt, '余额不足', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(53, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_53(self):
+        error_prompt = self.queryTransfer_business.query_transferT_amount_space()
+        verification_result = self.assertEqual(error_prompt, '请输入转账金额', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(54, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_54(self):
+        error_prompt = self.queryTransfer_business.query_transferT_amount_capital()
+        verification_result = self.assertEqual(error_prompt, '请输入转账金额', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(55, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_55(self):
+        error_prompt = self.queryTransfer_business.query_transferT_payee_wrong()
+        verification_result = self.assertEqual(error_prompt, '账户和户名不匹配', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(56, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_56(self):
+        transfer_submitted_mark = self.queryTransfer_business.query_transferT_same_payer()
+        verification_result = self.assertEqual(transfer_submitted_mark, '转入转出账户不能相同', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(57, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_57(self):
+        error_prompt = self.queryTransfer_business.query_transferT_drawpassword_wrong()
+        verification_result = self.assertEqual(error_prompt, '您已输错密码[1]次,再输错[2]次,将锁卡', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(58, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_58(self):
+        transfer_submitted_mark = self.queryTransfer_business.query_transferT_drawpassword_again()
+        verification_result = self.assertEqual(transfer_submitted_mark, '转账已提交', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(59, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_59(self):
+        error_prompt = self.queryTransfer_business.query_transferT_drawpassword_lack()
+        verification_result = self.assertEqual(error_prompt, '取款密码输入不正确，请重新输入', '验证失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(60, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_60(self):
+        element_exist = self.queryTransfer_business.query_transferT_drawpassword_excess()
+        verification_result = self.assertIsNotNone(element_exist, '输入取款密码超过6位失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(61, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_61(self):
+        element_exist = self.queryTransfer_business.query_transferT_bank_list()
+        verification_result = self.assertIsNotNone(element_exist, '进入银行列表失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(62, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_62(self):
+        element_exist = self.queryTransfer_business.query_transferT_payee_list()
+        verification_result = self.assertIsNotNone(element_exist, '进入收款人列表失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(63, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_63(self):
+        element_exist = self.queryTransfer_business.query_transferT_payee_list()
+        verification_result = self.assertIsNotNone(element_exist, '进入收款人列表失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(64, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_64(self):
+        element_compare = self.queryTransfer_business.query_transferT_payee_choice()
+        verification_result = self.assertTrue(element_compare, '选择收款人信息失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(65, 10, '通过')
+
+
+    # @unittest.skip('暂停CaseTest')
+    def test_65(self):
+        payeelist_compare = self.queryTransfer_business.query_transferT_payee_add()
+        verification_result = self.assertTrue(payeelist_compare, '添加收款人信息失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(66, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_66(self):
+        payeelist_compare = self.queryTransfer_business.query_transferT_payee_delete()
+        verification_result = self.assertTrue(payeelist_compare, '删除收款人信息失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(67, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_67(self):
+        compare_branch_amount = self.queryTransfer_business.query_transferT_payee_branch()
+        verification_result = self.assertTrue(compare_branch_amount, '进入支行页面失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(68, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_68(self):
+        city_list = self.queryTransfer_business.query_transferT_payee_city()
+        verification_result = self.assertIsNotNone(city_list, '弹出城市列表页面失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(69, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_69(self):
+        branch_bank = self.queryTransfer_business.query_transferT_branch_keyword()
+        verification_result = self.assertIsNotNone(branch_bank, '关键字分行查询失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(70, 10, '通过')
+
+    # @unittest.skip('暂停CaseTest')
+    def test_70(self):
+        account_amount = self.queryTransfer_business.query_transferT_account_detail()
+        verification_result = self.assertIsNotNone(account_amount, '获取账户种类失败')
+        print('verification_result:', verification_result)
+        if verification_result == None:
+            write_excel.write(71, 10, '通过')
 
     @unittest.skip('暂停CaseTest')
     def test_100(self):
@@ -536,7 +710,7 @@ def get_suite(i):
     print('read_excel方法get_suite:', read_excel)
     rows = read_excel.get_rows()
     print('rows方法get_suite:',rows)
-    for j in range(1, 50):
+    for j in range(1, 71):
         # print('j循环：', j)
         list = read_excel.get_excel_value("test_" + str(j))
         # print("list:", list)
@@ -579,7 +753,7 @@ if __name__ == '__main__':
     appium_init()
     threads = []
     # print('在什么情况？')
-    for i in range(get_count()):       # for i in range(get_count())
+    for i in range(get_count()):
         print("i:",i)
         # t = threading.Thread(target=get_suite, args=(i,))  # 注意args=(i,)要加上逗号
         t = multiprocessing.Process(target=get_suite, args=(i,))
