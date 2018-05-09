@@ -606,8 +606,8 @@ class CaseTest(ParameTest_Case):
 
     # @unittest.skip('暂停CaseTest')
     def test_62(self):
-        element_exist = self.queryTransfer_business.query_transferT_payee_list()
-        verification_result = self.assertIsNotNone(element_exist, '进入收款人列表失败')
+        element_exist = self.queryTransfer_business.query_transferT_bank_search()
+        verification_result = self.assertIsNotNone(element_exist, '搜索银行名称失败')
         print('verification_result:', verification_result)
         if verification_result == None:
             write_excel.write(63, 10, '通过')
