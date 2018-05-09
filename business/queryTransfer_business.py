@@ -118,7 +118,18 @@ class QueryTransfer_Business:
         self.queryTransfer_handle.click_submit_transfer_button()
         # 验证码和取款密码输入页面
         self.public_method.swipe_on('up', 10000)
+        time.sleep(3)
+
         self.queryTransfer_handle.click_get_code_button()
+        # 如果没有输入短信验证码，直接点击转账按钮，则会弹出请输入短信验证码的提示，此时再次点击获取短信验证码
+        system_prompts_01 = self.queryTransfer_page.get_system_prompt_element()
+        # print('system_prompts_01:', system_prompts_01)
+        system_prompt_01 = system_prompts_01[2].get_attribute('text')
+        print('获取system_prompt_01：', system_prompt_01)
+        prompt_tip_01 = '短信验证码'
+        if prompt_tip_01 in system_prompt_01:
+            self.queryTransfer_handle.click_error_prompt_confirm_button()
+            self.queryTransfer_handle.click_get_code_button()
         self.queryTransfer_handle.send_input_code_code()
         self.queryTransfer_handle.click_draw_password_button()
         # draw_password = self.read_excel.get_cell(4, 7)
@@ -1965,7 +1976,7 @@ class QueryTransfer_Business:
             print('列表account_message：', account_message)
             account_message_str = ",".join(account_message)
             print('列表转换为字符串：', account_message_str)
-            self.write_excel.write(27, 18, account_message_str)
+            self.write_excel.write(49, 18, account_message_str)
 
             for j in range(2):
                 self.queryTransfer_handle.click_left_head_button_button()
@@ -2011,7 +2022,7 @@ class QueryTransfer_Business:
         :return:
         '''
         # 选择操作清单
-        self.query_transferG_select()
+        self.query_transferT_select()
         # 转账页面
         self.public_method.swipe_on('up', 10000)
         transfer_amount = self.read_excel.get_cell(52, 11)
@@ -2034,7 +2045,7 @@ class QueryTransfer_Business:
         :return:
         '''
         # 选择操作清单
-        self.query_transferG_select()
+        self.query_transferT_select()
         # 转账页面
         self.public_method.swipe_on('up', 10000)
         transfer_amount = self.read_excel.get_cell(53, 11)
@@ -2057,7 +2068,7 @@ class QueryTransfer_Business:
         :return:
         '''
         # 选择操作清单
-        self.query_transferG_select()
+        self.query_transferT_select()
         # 转账页面
         self.public_method.swipe_on('up', 10000)
         self.queryTransfer_handle.click_transfer_tips_head_button()
@@ -2077,7 +2088,7 @@ class QueryTransfer_Business:
         :return:
         '''
         # 选择操作清单
-        self.query_transferG_select()
+        self.query_transferT_select()
         # 转账页面
         self.public_method.swipe_on('up', 10000)
         transfer_amount = self.read_excel.get_cell(55, 11)
@@ -2335,7 +2346,7 @@ class QueryTransfer_Business:
         :return:
         '''
         # 选择操作清单
-        self.query_transferG_select()
+        self.query_transferT_select()
         # 转账页面
         self.public_method.swipe_on('up', 10000)
         transfer_amount = self.read_excel.get_cell(14, 10)
@@ -2374,7 +2385,7 @@ class QueryTransfer_Business:
         :return:
         '''
         # 选择操作清单
-        self.query_transferG_select()
+        self.query_transferT_select()
         # 转账页面
         self.public_method.swipe_on('up', 10000)
         transfer_amount = self.read_excel.get_cell(60, 11)
@@ -2411,7 +2422,7 @@ class QueryTransfer_Business:
         :return:
         '''
         # 选择操作清单
-        self.query_transferG_select()
+        self.query_transferT_select()
         # 转账页面
         self.public_method.swipe_on('up', 10000)
         transfer_amount = self.read_excel.get_cell(61, 11)
@@ -2478,6 +2489,7 @@ class QueryTransfer_Business:
         self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
         self.queryTransfer_handle.click_payee_message_button()
         self.queryTransfer_handle.click_transfer_other_button()
+        self.queryTransfer_handle.click_transfer_tomorrow_button()
         self.queryTransfer_handle.click_transfer_bank_name_button()
         search_bank = self.read_excel.get_cell(41, 13)
         print('search_bank:', search_bank)
@@ -2488,7 +2500,7 @@ class QueryTransfer_Business:
         search_bank_element = self.read_excel.get_cell(41, 14)
         print('search_bank_element:', search_bank_element)
         element_exist = self.queryTransfer_page.get_bank_list_element().find_element_by_xpath(search_bank_element)
-        print('获取银行元素：', element_exist)
+        # print('获取银行元素：', element_exist)
         if element_exist:
             for i in range(3):
                 # 返回收款人信息页面
@@ -2514,7 +2526,7 @@ class QueryTransfer_Business:
         # 取温馨提示属性，再返回
         # 取的是收款人列表的银行卡号元素
         element_exist = self.queryTransfer_page.get_bank_list_card_element()
-        print('获取收款人列表元素：', element_exist)
+        # print('获取收款人列表元素：', element_exist)
         if element_exist:
             if element_exist:
                 for i in range(3):
@@ -2691,7 +2703,7 @@ class QueryTransfer_Business:
         :return: payeelist_compare_length
         '''
         # 调用删除前需要删除的元素第几位元素
-        j = self.query_transferG_payee_delete_before()
+        j = self.query_transferT_payee_delete_before()
         print('取到值：', j)
         # 删除收款人前的收款人清单数量
         payeelist_length_before = len(self.queryTransfer_page.get_bank_list_card_element())
@@ -2723,8 +2735,9 @@ class QueryTransfer_Business:
         # 选择操作清单
         self.queryTransfer_handle.click_action_list_button('//*[contains(@text,"查询转账")]')
         self.queryTransfer_handle.click_payee_message_button()
-        self.queryTransfer_handle.click_transfer_tomorrow_button()
         self.queryTransfer_handle.click_transfer_other_button()
+        self.queryTransfer_handle.click_transfer_tomorrow_button()
+
         # self.queryTransfer_handle.click_transfer_payee_head_button()
 
         self.queryTransfer_handle.click_transfer_bank_name_button()
@@ -2760,7 +2773,7 @@ class QueryTransfer_Business:
         :return:
         '''
         # 调用查看前需要搜索城市在第几位元素
-        j = self.query_transferG_payee_cityChoice()
+        j = self.query_transferT_payee_cityChoice()
         # print('城市元素取到值：',j)
         city_elements = self.queryTransfer_page.get_city_list_element()[j]
         city_elements.click()
